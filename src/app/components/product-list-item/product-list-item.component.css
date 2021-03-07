@@ -1,0 +1,17 @@
+.product-img{
+  width:100%;
+}
+.card-content{
+float: left;
+width: 100%;
+}
+.price-attribute{
+  margin: 5px;
+}
+.amount-attribute{
+  margin: 5px;
+  width: 70px;
+}
+.buy-button{
+  margin: 5px;
+}

@@ -1,13 +1,11 @@
-import { Url } from "node:url";
-
 export class Product {
-  id: string ="";
-  name: string = "";
-  description:string = "";
-  image:string = "";
-  price: number = 0;
+  id: string;
+  name: string;
+  description:string;
+  image:string;
+  price: number;
 
-  public Product(id:string, name:string, description:string, image:string, price:number){
+  constructor(id:string, name:string, description:string, image:string, price:number){
     this.id = id;
     this.name = name;
     this.description = description;

@@ -16,6 +16,12 @@ import de from '@angular/common/locales/de';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { HeaderComponent } from './components/header/header.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 registerLocaleData(de);
 
@@ -26,14 +32,20 @@ registerLocaleData(de);
     CartPageComponent,
     ProductsPageComponent,
     ProductListComponentComponent,
-    ProductListItemComponent
+    ProductListItemComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NzCardModule,
+    NzGridModule,
+    NzInputNumberModule,
+    NzButtonModule,
+    NzIconModule
   ],
   providers: [{ provide: NZ_I18N, useValue: de_DE }],
   bootstrap: [AppComponent]

@@ -1,0 +1,18 @@
+ul{
+  list-style: none;
+  float:right;
+}
+li{
+  float: left;
+}
+a i{
+  margin: 10px;
+}
+li a{
+  padding: 16px;
+  background-color: orange;
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  text-align: center;
+}
