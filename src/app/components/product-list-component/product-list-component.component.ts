@@ -7,17 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-list-component.component.css']
 })
 export class ProductListComponentComponent implements OnInit {
-  productList: Product[] = [];
+  productList: Product[] = [{id:"",name: "Waldhonig", description:"\"Der Dunkle\" ", image:"https://www.bienenprodukte-shop.de/images/product_images/original_images/img_1627_waldhonig1.jpg", price:6.0},
+  {id:"2", name: "Tannenhonig", description: "Reiner Weißtannenhonig", image: "https://www.bienenprodukte-shop.de/images/product_images/original_images/img_1627_waldhonig1.jpg", price: 6.5},
+  {id: "3", name: "Blütenhonig", description: "\"Der Feste\"  - Cremig gerührt.", image: "https://images-na.ssl-images-amazon.com/images/I/61lvwIBQF5L._SY445_.jpg", price: 6.0}
+];
   constructor() { }
 
   ngOnInit(): void {
-    let product1 = new Product("id", "Waldhonig", "\"Der Dunkle\" ", "https://www.bienenprodukte-shop.de/images/product_images/original_images/img_1627_waldhonig1.jpg", 6.0);
-    let product2 = new Product("id", "Tannenhonig", "Reiner Weißtannenhonig", "https://www.bienenprodukte-shop.de/images/product_images/original_images/img_1627_waldhonig1.jpg", 6.5);
-    let product3 = new Product("id", "Blütenhonig", "\"Der Feste\"  - Cremig gerührt.", "https://images-na.ssl-images-amazon.com/images/I/61lvwIBQF5L._SY445_.jpg", 6.0);
-
-    this.productList.push(product1);
-    this.productList.push(product2);
-    this.productList.push(product3);
   }
 
 }

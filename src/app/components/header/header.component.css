@@ -1,16 +1,27 @@
+.header{
+  width: 100vw;
+  background-color: orange;
+}
+.badge{
+margin-right: 12px;
+color: white;
+font-size: large;
+}
 ul{
   list-style: none;
   float:right;
+
 }
 li{
+  margin: 15px;
   float: left;
+
 }
 a i{
-  margin: 10px;
+  margin:0 5px;
 }
 li a{
-  padding: 16px;
-  background-color: orange;
+
   text-decoration: none;
   color: white;
   font-size: large;
