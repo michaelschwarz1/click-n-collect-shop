@@ -1,14 +1,17 @@
+
 import { IProduct } from './../models/IProduct';
 import { CartItem } from './../models/cartItem';
 import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 items:Map<Product,number> = new Map<Product,number>();
 cartItems:CartItem[] = [];
+
 
 itemCount:number = 0;
 

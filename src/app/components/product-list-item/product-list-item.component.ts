@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./product-list-item.component.css']
 })
 export class ProductListItemComponent implements OnInit {
-@Input("product") product!: Product;
+@Input("product") product:any;
 amount:number=1;
   constructor(private cartService: CartService) {
    }

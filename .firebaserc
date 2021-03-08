@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "honig-birkendorf": {
+      "hosting": {
+        "click-n-collect-shop": [
+          "honig-birkendorf"
+        ]
+      }
+    }
+  }
+}

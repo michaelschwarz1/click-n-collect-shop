@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment.prod';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,6 +27,8 @@ import { CartSummaryTableComponent } from './components/cart-summary-table/cart-
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { v4 as uuidv4 } from 'uuid';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { AngularFirestoreModule} from '@angular/fire/firestore'
+import { AngularFireModule } from '@angular/fire';
 registerLocaleData(de);
 
 @NgModule({
@@ -45,6 +48,8 @@ registerLocaleData(de);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     NzCardModule,
     NzGridModule,
     NzInputNumberModule,

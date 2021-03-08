@@ -9,7 +9,6 @@ export class CartItem implements ICartItem {
   product:IProduct;
   amount:number;
   constructor(product:IProduct,amount:number){
-
     this.product = product;
     this.amount = amount;
   }
