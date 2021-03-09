@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartSummaryTableComponent implements OnInit {
   isLoading:boolean = true;
-  productMap:Map<Product,number> = new Map();
   cartItems:CartItem[] = [];
   constructor(private cartService:CartService) { }
 
@@ -21,5 +20,8 @@ export class CartSummaryTableComponent implements OnInit {
 
  countUnique(iterable:Iterable<Product>) {
   return new Set(iterable).size;
+}
+deleteEntry(data:CartItem){
+this.cartService.deleteItem(data);
 }
 }

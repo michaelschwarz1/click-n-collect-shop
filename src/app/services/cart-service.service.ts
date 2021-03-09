@@ -9,7 +9,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class CartService {
-items:Map<Product,number> = new Map<Product,number>();
 cartItems:CartItem[] = [];
 
 
@@ -19,34 +18,31 @@ cartItemAdded = new Subject();
 
   constructor() { }
   addToCart(product:Product, amount:number) {
-      let oldValue = this.items.get(product);
-      if(oldValue != undefined){
-        this.items.set(product,oldValue + amount);
-      }
-      else{
-        this.items.set(product,amount);
-      }
-      console.log(this.items);
+
+    let itemExists = this.cartItems.find(item => item.product == product);
+    if(itemExists!= undefined && itemExists !=null){
+      let index = this.cartItems.indexOf(itemExists);
+      itemExists.amount += +amount;
+      this.cartItems[index] = itemExists;
+    }else{
+      this.cartItems.push(new CartItem(product,amount));
+    }
       this.itemCount += +amount;
       this.cartItemAdded.next(this.itemCount)
     }
 
-  getItems() {
-    return this.items;
-  }
   getItemList(){
-    let list:CartItem[] = [];
-
-    this.items.forEach((value:number,key: IProduct) =>list.push(new CartItem(key,value)));
-    console.log(list);
-    console.log(this.items);
-    return list;
+    return this.cartItems.filter(cartItem => cartItem.amount >0);
   }
 
   clearCart() {
-    this.items = new Map<Product,number>();
+    this.cartItems = [];
     this.itemCount = 0;
-    return this.items;
+    return this.cartItems;
   }
-
+deleteItem(item:CartItem){
+  let index = this.cartItems.indexOf(item)
+  item.amount=0;
+this.cartItems[index]=item;
+  }
 }
