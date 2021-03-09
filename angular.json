@@ -127,6 +127,10 @@
               "devServerTarget": "click-n-collect-shop:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
