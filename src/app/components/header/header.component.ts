@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-cartCounter = 0;
-  constructor(private cartService:CartService) { }
+  cartCounter = 0;
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cartService.cartItemAdded.subscribe((data) => {
+    this.cartService.cartItemUpdate.subscribe((data) => {
       this.cartCounter = <number>data;
-      console.log(data);});
+      console.log(data);
+    });
 
   }
 
