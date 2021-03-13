@@ -1,4 +1,3 @@
-
 import { IProduct } from './../models/IProduct';
 import { CartItem } from './../models/cartItem';
 import { Product } from './../models/product';
@@ -10,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class CartService {
 cartItems:CartItem[] = [];
+cartItemSubject = new Subject();
 
 
 itemCount:number = 0;
@@ -17,6 +17,7 @@ itemCount:number = 0;
 cartItemAdded = new Subject();
 
   constructor() { }
+
   addToCart(product:Product, amount:number) {
 
     let itemExists = this.cartItems.find(item => item.product == product);
@@ -29,6 +30,7 @@ cartItemAdded = new Subject();
     }
       this.itemCount += +amount;
       this.cartItemAdded.next(this.itemCount)
+      this.cartItemSubject.next(this.getItemList());
     }
 
   getItemList(){
@@ -38,11 +40,16 @@ cartItemAdded = new Subject();
   clearCart() {
     this.cartItems = [];
     this.itemCount = 0;
+    this.cartItemSubject.next(this.cartItems);
     return this.cartItems;
   }
 deleteItem(item:CartItem){
+  this.itemCount -= item.amount;
+  this.cartItemAdded.next(this.itemCount)
+
   let index = this.cartItems.indexOf(item)
   item.amount=0;
-this.cartItems[index]=item;
+  this.cartItems[index]=item;
+  this.cartItemSubject.next(this.getItemList());
   }
 }
