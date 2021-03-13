@@ -1,11 +1,13 @@
 .header{
   width: 100vw;
   background-color: orange;
+  font-size: 1.7em;
+  padding-right: 5px;
 }
 .badge{
 margin-right: 12px;
 color: white;
-font-size: large;
+font-size: 1em;
 }
 ul{
   list-style: none;
@@ -24,6 +26,6 @@ li a{
 
   text-decoration: none;
   color: white;
-  font-size: large;
+
   text-align: center;
 }

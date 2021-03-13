@@ -1,14 +1,14 @@
 <div class="header">
 <ul>
   <li>
-    <a routerLink=""><i nz-icon nzType="home" nzTheme="outline"></i>Home</a>
+    <a routerLink=""><i nz-icon nzType="home" nzTheme="outline"></i></a>
   </li>
   <li>
-    <a routerLink="shop"><i nz-icon nzType="shopping" nzTheme="outline"></i>Produkte</a>
+    <a routerLink="shop"><i nz-icon nzType="shopping" nzTheme="outline"></i></a>
   </li>
   <li>
 
-      <a routerLink="checkout"><nz-badge [nzCount]="cartCounter" class="badge" nzPlacement="start"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i></nz-badge>Warenkorb</a>
+    <nz-badge [nzCount]="cartCounter" class="badge" nzPlacement="start"><a routerLink="checkout"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i></a></nz-badge>
 
   </li>
 </ul>

@@ -1,5 +1,7 @@
 .product-img{
-  width:100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*magic*/
 }
 .card-content{
 float: left;
@@ -14,4 +16,7 @@ width: 100%;
 }
 .buy-button{
   margin: 5px;
+}
+nz-select {
+  width: 100%;
 }

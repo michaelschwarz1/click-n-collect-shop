@@ -29,6 +29,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { AngularFireModule } from '@angular/fire';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 registerLocaleData(de);
 
 @NgModule({
@@ -56,7 +57,8 @@ registerLocaleData(de);
     NzButtonModule,
     NzIconModule,
     NzTableModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzSelectModule
   ],
   providers: [{ provide: NZ_I18N, useValue: de_DE }],
   bootstrap: [AppComponent]
