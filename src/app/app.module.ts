@@ -30,6 +30,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { AngularFireModule } from '@angular/fire';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { CartSumamryItemComponent } from './components/cart-sumamry-item/cart-sumamry-item.component';
 registerLocaleData(de);
 
 @NgModule({
@@ -41,7 +42,8 @@ registerLocaleData(de);
     ProductListComponentComponent,
     ProductListItemComponent,
     HeaderComponent,
-    CartSummaryTableComponent
+    CartSummaryTableComponent,
+    CartSumamryItemComponent
   ],
   imports: [
     BrowserModule,

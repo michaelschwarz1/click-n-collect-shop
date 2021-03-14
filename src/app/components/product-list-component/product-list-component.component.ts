@@ -12,11 +12,13 @@ export class ProductListComponentComponent implements OnInit {
   products = this.firebase.collection('products').valueChanges();
   productList:Product[] = [];
 
-  constructor(private firebase:AngularFirestore) { }
+  constructor(private firebase:AngularFirestore, private productsService:ProductsService) { }
 
   ngOnInit(): void {
     this.products.subscribe(data=>{
       this.productList = <Product[]>data;
+      this.productsService.listProducts();
+
     })
   }
 

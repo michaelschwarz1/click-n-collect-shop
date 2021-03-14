@@ -1,0 +1,32 @@
+<nz-card style="max-width: 100%;">
+  <div nz-row>
+   <!-- product image col-->
+    <div nz-col nzSpan="4">
+      <div nz-row>
+        <img src="{{cartItem.product.image}}" class="product-img">
+      </div>
+   </div>
+   <!-- wrapper col for content -->
+   <div nz-col nzFlex="1/4">
+    <h2>{{cartItem.product.name}}</h2>
+    </div>
+    <div nz-col nzFle="2/4">
+      <div nz-row class="price-attribute">
+        {{cartItem.product.price|currency:  'EUR': true : '1.2-2'}}
+      </div>
+    </div>
+    <div nz-col nzFlex="1/4">
+      <div nz-row>
+        <div class="amount-attribute">
+          <nz-select [(ngModel)]="cartItem.amount">
+            <nz-option *ngFor="let n of getSelectAmount()" [nzValue]="n" [nzLabel]="''+n"></nz-option>
+          </nz-select>
+        </div>
+
+      <div class="action-buttons">
+        <button nz-button nzType="primary" (click)="deleteEntry()"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+       </div>
+      </div>
+    </div>
+   </div>
+</nz-card>

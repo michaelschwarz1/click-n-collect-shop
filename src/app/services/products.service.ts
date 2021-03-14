@@ -1,5 +1,7 @@
+import { CartItem } from './../models/cartItem';
+import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'

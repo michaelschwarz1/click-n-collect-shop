@@ -1,0 +1,23 @@
+img{
+  max-width: 50px;
+  max-height: 50px;
+}
+nz-select {
+  width: 100%;
+}
+.card-content{
+  float: left;
+  width: 100%;
+  }
+  .price-attribute{
+    padding: 5px;
+  }
+  .amount-attribute{
+    padding-right: 5px;
+  }
+  .action-button{
+
+  }
+  .action-button i{
+    color:rgb(220, 32, 32)
+  }

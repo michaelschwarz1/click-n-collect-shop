@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class CartSummaryTableComponent implements OnInit {
   isLoading:boolean = true;
   cartItems:CartItem[] = [];
-  cartItemObs:Observable<CartItem[]> = new Observable<CartItem[]>();
+  cartItemObs!:Observable<CartItem[]>;
   constructor(private cartService:CartService) { }
 
   ngOnInit(): void {
@@ -21,8 +21,7 @@ export class CartSummaryTableComponent implements OnInit {
       this.cartItems = <CartItem[]>data;
       console.log(data);});
     this.isLoading = false;
+
+    this.cartItemObs = this.cartService.getItemsFromDb();
   }
-deleteEntry(data:CartItem){
-this.cartService.deleteItem(data);
-}
 }
