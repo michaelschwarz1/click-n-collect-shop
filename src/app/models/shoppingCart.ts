@@ -1,11 +1,13 @@
 import { CartItem } from './cartItem';
 import { v4 as uuidv4 } from 'uuid';
+import { Product } from './product';
 export class ShoppingCart {
-CartItemList:CartItem[] = [];
-Id:string;
+  // products: Product[];
+  // id: string = "";
+  // cartId:string;
 
-constructor() {
-  this.Id = uuidv4();
-}
-
+  // constructor(cartId:string) {
+  //   this.cartId = cartId;
+  //   this.products = [];
+  // }
 }
