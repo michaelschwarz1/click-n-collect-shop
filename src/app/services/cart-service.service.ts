@@ -4,7 +4,7 @@ import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({

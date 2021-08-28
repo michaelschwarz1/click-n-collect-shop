@@ -1,4 +1,4 @@
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ProductsService } from './../../services/products.service';
 import { Product } from './../../models/product';
 import { Component, OnInit } from '@angular/core';

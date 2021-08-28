@@ -27,8 +27,8 @@ import { CartSummaryTableComponent } from './components/cart-summary-table/cart-
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { v4 as uuidv4 } from 'uuid';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { AngularFirestoreModule} from '@angular/fire/firestore'
-import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule} from '@angular/fire/compat/firestore'
+import { AngularFireModule } from '@angular/fire/compat';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { CartSumamryItemComponent } from './components/cart-sumamry-item/cart-sumamry-item.component';
 registerLocaleData(de);
