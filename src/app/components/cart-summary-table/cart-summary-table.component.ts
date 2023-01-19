@@ -1,27 +1,35 @@
 import { CartItem } from './../../models/cartItem';
 import { Product } from './../../models/product';
 import { CartService } from './../../services/cart-service.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart-summary-table',
   templateUrl: './cart-summary-table.component.html',
   styleUrls: ['./cart-summary-table.component.css']
 })
-export class CartSummaryTableComponent implements OnInit {
+export class CartSummaryTableComponent implements OnInit,OnDestroy {
   isLoading:boolean = true;
   cartItems:CartItem[] = [];
-  cartItemObs!:Observable<CartItem[]>;
+  itemSubject$:Subscription;
   constructor(private cartService:CartService) { }
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getItemList();
-    this.cartService.cartItemSubject.subscribe((data) => {
-      this.cartItems = <CartItem[]>data;
-      console.log(data);});
-    this.isLoading = false;
+    this.isLoading = true;
+    // this.cartItems = this.cartService.getItemsGroupedByProduct();
+    this.itemSubject$ = this.cartService.cartItemSubject.subscribe((data) => {
+      this.cartItems = data;
+      console.log(`new data: ${data}`);
+    console.log(data);});
 
-    this.cartItemObs = this.cartService.getItemsFromDb();
+    console.log(`cartItemLenght: ${this.cartItems.length}`)
+    this.isLoading = false;
+  }
+    ngOnDestroy(): void {
+      if(this.itemSubject$){
+        this.itemSubject$.unsubscribe();
+      }
+
   }
 }

@@ -1,106 +1,106 @@
+import { ShoppingCart } from './../models/shoppingCart';
 import { IProduct } from './../models/IProduct';
 import { CartItem } from './../models/cartItem';
 import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  cartId: string = "myTestCart";
-  cartItems: CartItem[] = []
-  cartItemSubject = new Subject();
+  private _cartId: string = uuidv4();
+  private shoppingCart : ShoppingCart = new ShoppingCart(this._cartId);
+  cartItemSubject = new Subject<CartItem[]>();
 
   cartStoreObservable: Observable<any>;
-  cartStoreCollection!: AngularFirestoreCollection<CartItem>;
-  // shoppingCartRef: AngularFirestoreCollection<ShoppingCart>;
-  // cartListCollection!: AngularFirestoreCollection;
+  storeRef!: AngularFirestoreDocument<ShoppingCart>;
+
   itemCount: number = 0;
 
-  cartItemAdded = new Subject();
+  cartItemAdded = new Subject<number>();
 
   constructor(private firebase: AngularFirestore) {
-    this.cartStoreCollection = this.firebase.collection('cartItems', ref => ref.where('cartId', '==', this.cartId).where('amount', '>', 0));
-    // this.cartStoreObservable = this.cartStoreCollection.valueChanges();
-    this.cartStoreObservable = this.cartStoreCollection.snapshotChanges().pipe(map(changes => {
-      return changes.map(a => {
-        const data = a.payload.doc.data() as CartItem;
-        // data.id = a.payload.doc.id;
-        return data;
-      });
-    }));
-
+    this.storeRef = this.firebase.doc<ShoppingCart>(`shoppingCart/${this._cartId}`);
   }
 
-  addToCartDb(product: Product, amount: number) {
-    let cartItem: CartItem = {cartId: this.cartId, product: product, amount: amount }
-    this.cartStoreCollection.add(cartItem).then((ref) => {
-      console.log("successful written Document with id: ", ref.id);
-      this.itemCount += +amount;
-      this.cartItemAdded.next(this.itemCount)
-      this.cartItemSubject.next(this.getItemsFromDb());
-    }).catch((error) => {
-      console.error("Error writing document to db", error);
-    });
-
+  public addToCart(product:Product, amount:number):void {
+    let entry: CartItem = new CartItem(uuidv4(),product,amount);
+    this.shoppingCart.items.push(entry);
+    this.itemCount += +amount;
+    this.cartItemAdded.next(this.itemCount)
+    this.cartItemSubject.next(this.shoppingCart.items);
+    console.log('added a new Item to the Cart');
   }
 
-  addToCartUpdate(product: Product, amount: number) {
-    // let pObject:Object = Object.assign(Object,product);
-    // let sc:ShoppingCart = {id:"",cartId:this.cartId,products:[]};
-    let cartItem: CartItem = {cartId: this.cartId, product: product, amount: amount }
-    this.cartStoreCollection.ref.where('product', '==', product).get().then((res)=>{
-
-    });
-    this.cartStoreCollection.doc(this.cartId).set(cartItem, {merge: true})
-    // let query = this.shoppingCartRef.ref.where('cartId', '==', this.cartId).get().then((doc) => {
-    //   if (doc.empty) {
-    //     this.shoppingCartRef.add(sc).then((result)=>{
-    //       console.log("added new shoppingCart", result.id);
-    //     })
-    //   }
-    // });
-    // this.shoppingCartRef.snapshotChanges()
-
+  public saveCart():void{
+    this.storeRef.set(this.shoppingCart);
+    this.storeRef.valueChanges().subscribe(v=>this.shoppingCart = v);
   }
-  getItemList() {
-    return this.cartItems.filter(cartItem => cartItem.amount > 0);
+  getItemsGroupedByProduct(){
+    let group:CartItem[] = [];
+    this.shoppingCart.items.forEach(item =>{
+      let aggregate = group.find(existing => existing.product.id == item.product.id);
+      if(aggregate){
+        aggregate.amount += +item.amount;
+      }else{
+        group.push(item);
+      }
+    })
+    return group;
   }
+  // addToCartDb(product: Product, amount: number) {
+  //   let cartItem: CartItem = {cartId: this._cartId, product: product, amount: amount }
+  //   this.cartStoreCollection.add(cartItem).then((ref) => {
+  //     console.log("successful written Document with id: ", ref.id);
+  //     this.itemCount += +amount;
 
-  getItemsFromDb() {
-    return this.cartStoreObservable;
-  }
+  //   }).catch((error) => {
+  //     console.error("Error writing document to db", error);
+  //   });
 
-  clearCart() {
-    this.cartItems = [];
-    this.itemCount = 0;
-    this.cartItemSubject.next(this.cartItems);
-    return this.cartItems;
-  }
-  deleteItem(item: CartItem) {
-    item.amount = 0;
+  // }
 
-    this.cartStoreCollection.doc(this.cartId).set(item, {merge: true})
-    // this.itemCount -= item.amount;
-    // this.cartItemAdded.next(this.itemCount)
+  // addToCartUpdate(product: Product, amount: number) {
+  //   // let pObject:Object = Object.assign(Object,product);
+  //   // let sc:ShoppingCart = {id:"",cartId:this.cartId,products:[]};
+  //   let cartItem: CartItem = {cartId: this._cartId, product: product, amount: amount }
+  //   this.cartStoreCollection.ref.where('product', '==', product).get().then((res)=>{
 
-    // let ref = this.cartStoreCollection.doc(item.id)
+  //   });
+  //   this.cartStoreCollection.doc(this._cartId).set(cartItem, {merge: true})
+  //   // let query = this.shoppingCartRef.ref.where('cartId', '==', this.cartId).get().then((doc) => {
+  //   //   if (doc.empty) {
+  //   //     this.shoppingCartRef.add(sc).then((result)=>{
+  //   //       console.log("added new shoppingCart", result.id);
+  //   //     })
+  //   //   }
+  //   // });
+  //   // this.shoppingCartRef.snapshotChanges()
 
-    //alternatively do not delete but set amount to 0
-    // item.amount = 0;
-    // ref.update(item)
+  // }
+  // getItemList() {
+  //   return this.cartItems.filter(cartItem => cartItem.amount > 0);
+  // }
 
-    // Hard delete
-    // ref.delete().then((success) => {
-    //   console.log("delted item: ", item)
-    // }).catch((error) => {
-    //   console.log("error deleting")
-    // });
+  // getItemsFromDb() {
+  //   return this.cartStoreObservable;
+  // }
 
+  // clearCart() {
+  //   this.cartItems = [];
+  //   this.itemCount = 0;
+  //   this.cartItemSubject.next(this.cartItems);
+  //   return this.cartItems;
+  // }
+  deleteItem(item: Product) {
+
+    this.shoppingCart.items  = this.shoppingCart.items.filter(i=> i.product.id != item.id);
+    this.itemCount = this.shoppingCart.items.length;
   }
 
   getSelectAmount(product: Product): number[] {

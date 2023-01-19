@@ -12,11 +12,13 @@ export class CartSumamryItemComponent implements OnInit {
   @Input("item") cartItem!:CartItem;
   constructor(private cartService:CartService) { }
 
+
   ngOnInit(): void {
+    console.log("init of cartItem detail")
   }
 
   deleteEntry(){
-    this.cartService.deleteItem(this.cartItem);
+    this.cartService.deleteItem(this.cartItem.product);
     }
 
   getSelectAmount():number[]{
